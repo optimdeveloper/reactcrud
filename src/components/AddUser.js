@@ -3,6 +3,8 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Button } from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
+import { showModalAction } from "../redux/crudDucks";
 const style = {
   position: "absolute",
   top: "50%",
@@ -15,14 +17,16 @@ const style = {
   p: 4,
 };
 
-export default function AddUser({ openData, parentCallback }) {
+export default function AddUser() {
+  const dispatch=useDispatch()
+  const open=useSelector((store)=>store.crud.show_modal)
   const handleClose = (event, reason) => {
-    parentCallback(false);
+    dispatch(showModalAction(false))
   };
   return (
     <div>
       <Modal
-        open={openData}
+        open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"

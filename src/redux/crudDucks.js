@@ -13,9 +13,9 @@ export default function crudReducer(state = dataInicial, action) {
   }
 }
 
-export const showModalAction = () => (dispatch, getState) => {
+export const showModalAction = (show) => (dispatch, getState) => {
   dispatch({
     type: SHOW_MODAL,
-    payload: true,
+    payload: show,
   });
 };

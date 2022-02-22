@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import "./App.css";
 import AddUser from "./components/AddUser";
@@ -10,18 +10,14 @@ import { showModalAction } from "./redux/crudDucks";
 
 function App() {
   const dispatch=useDispatch()
-
-  const [open, setOpen] = React.useState(false);
+  const open=useSelector((store)=>store.crud.show_modal)
   const openModal = () => {
-    setOpen(!open);
-    dispatch(showModalAction())
+    dispatch(showModalAction(true))
   };
-  const callback = (count) => {
-    setOpen(count);
-  };
+
   return (
     <BrowserRouter>
-      <AddUser parentCallback={callback} openData={open}></AddUser>
+      <AddUser></AddUser>
       <Routes>
         <Route
           path="/"
