@@ -1,36 +1,32 @@
-import { Button } from "@mui/material";
+
+import { AppBar, Box, IconButton, Toolbar,Typography } from "@mui/material";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import AddUser from "./components/AddUser";
 import EditUser from "./components/EditUser";
 import NotFound from "./components/NotFound";
-import { showModalAction } from "./redux/crudDucks";
+import MenuIcon from '@mui/icons-material/Menu';
+import ListUser from "./components/ListUser";
 
 function App() {
-  const dispatch=useDispatch()
-  const open=useSelector((store)=>store.crud.show_modal)
-  const openModal = () => {
-    dispatch(showModalAction(true))
-  };
-
   return (
     <BrowserRouter>
-      <AddUser></AddUser>
+      <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Toolbar variant="dense">
+          <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+            <MenuIcon />
+          </IconButton>
+          <Typography style={{marginLeft:20}}variant="h6" color="inherit" component="div">
+            Crud
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    </Box>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <div>
-              <Button variant="contained" onClick={openModal}>
-                Add User
-              </Button>
-            </div>
-          }
-        />
-        <Route path="/add" element={<AddUser open={open} />} />
-        <Route path="/edit" element={<EditUser/>} />
+        <Route path="/" element={<div><AddUser /><ListUser/></div>} />
+        <Route path="/edit" element={<EditUser />} />
         <Route path="/home" element={<div>Bienvenido</div>} />
         <Route path="*" element={<NotFound />} />
       </Routes>

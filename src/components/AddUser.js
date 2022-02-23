@@ -3,8 +3,9 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Button } from "@material-ui/core";
-import { useDispatch, useSelector } from "react-redux";
-import { showModalAction } from "../redux/crudDucks";
+import { TextField } from "@mui/material";
+//import { useDispatch, useSelector } from "react-redux";
+//import { showModalAction } from "../redux/crudDucks";
 const style = {
   position: "absolute",
   top: "50%",
@@ -16,15 +17,36 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+const btnStyle = {
+  marginTop: 20,
+  marginBottom: 20,
+  marginLeft: 40,
+};
 
 export default function AddUser() {
-  const dispatch=useDispatch()
-  const open=useSelector((store)=>store.crud.show_modal)
+  //const { handleSubmit, reset, control } = useForm();
+  //const { register, handleSubmit, watch, formState: { errors }} = useForm();
+const [open,setOpen]=React.useState(false)
+ const [firstName,setFirstName]=React.useState('')
+ const [lastName,setLastName]=React.useState('')
+
   const handleClose = (event, reason) => {
-    dispatch(showModalAction(false))
+    setOpen(false);
   };
+  const handleSummit = () => {
+   console.log(firstName,lastName)
+  };
+  const firstNameChange = (e) => setFirstName(e.target.value);
   return (
-    <div>
+    <div style={{ marginTop: 20 }}>
+      <Button
+        style={btnStyle}
+        color="primary"
+        variant="contained"
+        onClick={()=>setOpen(true)}
+      >
+        Add User
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -32,15 +54,27 @@ export default function AddUser() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
+          <Typography sx={{marginBottom:5}} id="modal-modal-title" variant="h6" component="h2">
+            Avatar
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-          <Button variant="contained" onClick={handleClose}>
-            Close
-          </Button>
+
+          <TextField
+           onChange={firstNameChange}
+            value={firstName}
+            id="outlined-basic"
+            label="First Name"
+            variant="outlined"
+            onChange={e => setFirstName(e.target.value)}
+          />
+        
+          <TextField
+            value={lastName}
+            id="outlined-basic"
+            label="LastName Name"
+            variant="outlined"
+          />
+          <Button color="primary" variant="contained" onClick={handleSummit}> Accept</Button>
+          <Button onClick={handleClose}>Close</Button>
         </Box>
       </Modal>
     </div>
