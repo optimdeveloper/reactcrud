@@ -2,7 +2,6 @@ import { DataGrid } from '@mui/x-data-grid';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { red } from '@mui/material/colors';
-import { minWidth } from '@mui/system';
 import { Paper } from '@mui/material';
 function options() {
   return <div>
